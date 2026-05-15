@@ -1,26 +1,21 @@
 from flask import Flask, request
+import os
 
 app = Flask(__name__)
 
 @app.route("/")
 def home():
-    with open("index.html", "r", encoding="utf-8") as f:
-        return f.read()
+    return "Portfolio is live 🚀"
 
 @app.route("/contact", methods=["POST"])
 def contact():
     name = request.form.get("name")
     message = request.form.get("message")
+    print(name, message)
+    return "Message received"
 
-    print("New Message Received")
-    print("Name:", name)
-    print("Message:", message)
-
-    return f"""
-    <h1>Thank You, {name}!</h1>
-    <p>Your message has been received.</p>
-    <a href="/">Back to Home</a>
-    """
+# IMPORTANT: Render entry point
+port = int(os.environ.get("PORT", 10000))
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=port)
