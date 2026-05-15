@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask
 import os
 
 app = Flask(__name__)
@@ -7,15 +7,12 @@ app = Flask(__name__)
 def home():
     return "Portfolio is live 🚀"
 
-@app.route("/contact", methods=["POST"])
-def contact():
-    name = request.form.get("name")
-    message = request.form.get("message")
-    print(name, message)
-    return "Message received"
-
-# IMPORTANT: Render entry point
-port = int(os.environ.get("PORT", 10000))
-
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=port)
+    port = int(os.environ.get("PORT", 10000))
+
+    app.run(
+        host="0.0.0.0",
+        port=port,
+        debug=False,
+        use_reloader=False
+    )
